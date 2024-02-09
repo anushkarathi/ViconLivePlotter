@@ -35,7 +35,7 @@ class AMTI_BalanceBoardGUI:
         """
         This method gets called by the animation to update the plot at a fixed rate.
         """
-        AMTI_vals = self.viconServer.get_latest_device_values(["AMTI2","AMTI3"], ["Force"], ["Fz"])
+        AMTI_vals = [f*-1 for f in self.viconServer.get_latest_device_values(["AMTI2","AMTI3"], ["Force"], ["Fz"])]
 
         # Set color. DoA of 0 = green, DoA of 1 = red
         total_force = sum(AMTI_vals)
