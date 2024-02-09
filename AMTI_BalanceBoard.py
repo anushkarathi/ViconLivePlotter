@@ -39,18 +39,19 @@ class AMTI_BalanceBoardGUI:
 
         # Set color. DoA of 0 = green, DoA of 1 = red
         total_force = sum(AMTI_vals)
-        DoA = (AMTI_vals[1] - AMTI_vals[0])/total_force
-        rgb_colors = colors.hsv_to_rgb((115 - 115*abs(DoA))/255, 90/100, 90/100)
+        if total_force > 10: 
+            DoA = (AMTI_vals[1] - AMTI_vals[0])/total_force
+            rgb_colors = colors.hsv_to_rgb((115 - 115*abs(DoA))/255, 90/100, 90/100)
 
-        # Configure height of the graph to be the total force
-        self.ax.set_ylim(0, total_force)
+            # Configure height of the graph to be the total force
+            self.ax.set_ylim(0, total_force)
 
-        # Update symmetry line height
-        self.symmline.set_ydata((total_force/2, total_force/2))
-        
-        for bar, height in zip(self.bars, AMTI_vals):
-            bar.set_height(height)
-            bar.set_color(rgb_colors)
+            # Update symmetry line height
+            self.symmline.set_ydata((total_force/2, total_force/2))
+            
+            for bar, height in zip(self.bars, AMTI_vals):
+                bar.set_height(height)
+                bar.set_color(rgb_colors)
         return self.bars
 
 
