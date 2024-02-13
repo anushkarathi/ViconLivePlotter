@@ -40,7 +40,7 @@ class AMTI_BalanceBoardGUI:
         # Set color. DoA of 0 = green, DoA of 1 = red
         total_force = sum(AMTI_vals)
         if total_force > 10: 
-            DoA = (AMTI_vals[1] - AMTI_vals[0])/total_force
+            DoA = min(max((AMTI_vals[1] - AMTI_vals[0])/total_force, 0),1)
             rgb_colors = colors.hsv_to_rgb((115 - 115*abs(DoA))/255, 90/100, 90/100)
 
             # Configure height of the graph to be the total force
