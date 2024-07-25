@@ -35,13 +35,13 @@ class AMTI_BalanceBoardGUI:
         """
         This method gets called by the animation to update the plot at a fixed rate.
         """
-        AMTI_vals = [f*-1 for f in self.viconServer.get_latest_device_values(["AMTI2","AMTI3"], ["Force"], ["Fz"])]
+        AMTI_vals = [f*-1 for f in self.viconServer.get_latest_device_values(["AMTI3","AMTI2"], ["Force"], ["Fz"])]
 
         # Set color. DoA of 0 = green, DoA of 1 = red
         total_force = sum(AMTI_vals)
         if total_force > 10: 
-            DoA = min(max((AMTI_vals[1] - AMTI_vals[0])/total_force, 0),1)
-            rgb_colors = colors.hsv_to_rgb((115 - 115*abs(DoA))/255, 90/100, 90/100)
+            DoA = min(max((AMTI_vals[1] - AMTI_vals[0])/total_force, -1),1)
+            rgb_colors = colors.hsv_to_rgb((113 - 113*abs(DoA))/360, 1 , 50/100)
 
             # Configure height of the graph to be the total force
             self.ax.set_ylim(0, total_force)
